@@ -7,7 +7,7 @@
         <theme>dark</theme>
         <encoding>UTF-8</encoding>
         <protocol>https</protocol>
-        <documentTitle>AutomaReport</documentTitle>
+        <documentTitle>AutomationReport</documentTitle>
 
     </configuration>
 </extentReports>

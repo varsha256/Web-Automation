@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
-import java.util.Locale;
 
 public class CommonFunctions {
    static CommonFunctions commonFunctions;
@@ -43,7 +42,6 @@ public static CommonFunctions getInstance(WebDriver driver){
         String locatorstring= locator.split("::")[1];
         List<WebElement> ele = null;
         switch (locatorMethod.toLowerCase()){
-
             case "xpath" : ele=driver.findElements(By.xpath(locatorstring));break;
             case "linktext" :ele= driver.findElements(By.linkText(locatorstring));break;
             case "classname" : ele=driver.findElements(By.className(locatorstring));break;
@@ -56,7 +54,7 @@ public static CommonFunctions getInstance(WebDriver driver){
      WebElement element=   getElement(locator);
      element.click();
     }
-    public void sendKeys(String locator, String inputText){
+    public void sendKeys(String locator,String inputText){
         WebElement element=   getElement(locator);
         element.sendKeys(inputText);
     }

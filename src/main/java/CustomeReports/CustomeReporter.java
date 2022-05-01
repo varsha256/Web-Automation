@@ -1,29 +1,47 @@
-package CustomeReports;
+
+package  CustomeReports;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+public class CustomeReporter{
+private static ExtentReports extent= null;
+private static ExtentTest test= null;
 
-public class CustomeReporter extends ExtentReports {
+private CustomeReporter(){
 
-    ExtentReports reporter ;
-    ExtentTest Logger;
+        }
+public  static ExtentTest getTest(){
+        return test;
+        }
+public  static void setTest(ExtentTest testPrd){
+        test=testPrd;
+        }
+
+public static ExtentReports getInstance(){
+        if(extent==null){
+        extent= createIntance();
+        }
+        return extent;
+        }
+
+private static ExtentReports createIntance() {
+        String  reportPath = System.getProperty("user.dir")+"\\ExecutionResults\\ExecutionResults.html";
+        ExtentSparkReporter sparkReporter = new ExtentSparkReporter(reportPath);
+        sparkReporter.config().setDocumentTitle("Automation-Execution-Report");
+        extent=new ExtentReports();
+        extent.attachReporter(sparkReporter);
+        return extent;
+        }
 
 
-    public CustomeReporter(){
-        SimpleDateFormat sf= new SimpleDateFormat("DD/MM/YYYY");
+        public static void report_Status_Pass(String message){
+        CustomeReporter.getTest().pass(MarkupHelper.createLabel(message, ExtentColor.GREEN));
+        }
 
-
-        Date date = new Date();
-        String curr_date = sf.format(date);
-        String  reportName= "Exceution_Result_"+curr_date+"_"+System.currentTimeMillis();
-        String reportFilePath=System.getProperty("user.dir")+"src/main/java/ExecutionResults/"+reportName+".html";
-//        ExtentSparkReporter extentSparkReporter= new E
-        reporter= new ExtentReports();
-
-    }
-
+        public static void report_Status_Fail(String message){
+                CustomeReporter.getTest().fail(MarkupHelper.createLabel(message, ExtentColor.RED));        }
 }
